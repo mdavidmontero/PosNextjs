@@ -1,6 +1,6 @@
 "use client";
 import { Transaction } from "@/schemas";
-import { formatCurrency } from "@/utils";
+import { formatCurrency, getImagePath } from "@/utils";
 import Image from "next/image";
 
 export default function TransactionSummary({
@@ -24,7 +24,7 @@ export default function TransactionSummary({
                 <div className="relative w-32 h-32">
                   {
                     <Image
-                      src={`${process.env.NEXT_PUBLIC_API_URL}/img/${item.product.image}`}
+                      src={getImagePath(item.product.image)}
                       alt={item.product.name}
                       className="absolute"
                       fill
