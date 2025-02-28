@@ -5,10 +5,16 @@ import { isValidPage } from "@/utils";
 import { redirect } from "next/navigation";
 import Pagination from "../../../components/ui/Pagination";
 import Link from "next/link";
+import getToken from "@/auth/token";
 
 async function getProducts(take: number, skip: number) {
+  const token = await getToken();
   const url = `${process.env.API_URL}/products?take=${take}&skip=${skip}`;
-  const req = await fetch(url);
+  const req = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   const json = await req.json();
   const data = ProductResponseSchema.parse(json);
   return {

@@ -12,6 +12,12 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        auth: "url('/grafico.svg')",
+      },
+      backgroundSize: {
+        "30": "20rem",
+      },
     },
   },
   plugins: [],

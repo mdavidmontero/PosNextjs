@@ -1,5 +1,6 @@
 "use server";
 
+import getToken from "@/auth/token";
 import { ErrorResponseSchema, Product, ProductFormSchema } from "@/schemas";
 
 type ActionStateType = {
@@ -11,6 +12,7 @@ export async function updateProduct(
   prevState: ActionStateType,
   formData: FormData
 ) {
+  const token = await getToken();
   const product = ProductFormSchema.safeParse({
     name: formData.get("name"),
     price: formData.get("price"),
@@ -30,12 +32,14 @@ export async function updateProduct(
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(product.data),
   });
   const json = await req.json();
   if (!req.ok) {
     const errors = ErrorResponseSchema.parse(json);
+
     return {
       errors: errors.message.map((issue) => issue),
       success: "",

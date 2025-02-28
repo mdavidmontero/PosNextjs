@@ -61,6 +61,7 @@ export const OrderSchema = z.object({
 export const SuccessResponseSchema = z.object({
   message: z.string(),
 });
+export const SuccessSchema = z.string();
 export const ErrorResponseSchema = z.object({
   message: z.array(z.string()),
   error: z.string(),

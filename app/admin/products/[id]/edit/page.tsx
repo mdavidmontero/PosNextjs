@@ -4,10 +4,16 @@ import EditProductForm from "../../../../../components/products/EditProductForm"
 import ProductForm from "../../../../../components/products/ProductForm";
 import { notFound } from "next/navigation";
 import { ProductSchema } from "@/schemas";
+import getToken from "@/auth/token";
 
 async function getProduct(id: string) {
+  const token = await getToken();
   const url = `${process.env.API_URL}/products/${id}`;
-  const req = await fetch(url);
+  const req = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   const json = await req.json();
   if (!req.ok) {
     notFound();

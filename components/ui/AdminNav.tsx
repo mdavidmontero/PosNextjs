@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import Logo from "./Logo";
+import { logout } from "../../actions/logout-user-action";
 
 export default function AdminNav() {
   return (
@@ -26,6 +28,15 @@ export default function AdminNav() {
         <Link href={"/"} className="rounded bg-green-400 font-bold py-2 px-10">
           Tienda
         </Link>
+        <button
+          className="block p-2 font-bold bg-red-600 hover:bg-red-700 rounded transition-colors duration-200 ease-in-out"
+          type="button"
+          onClick={async () => {
+            await logout();
+          }}
+        >
+          Cerrar Sesión
+        </button>
       </div>
     </header>
   );

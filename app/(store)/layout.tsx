@@ -1,12 +1,15 @@
+import { verifySession } from "@/auth/dalt";
 import ShoppinCart from "../../components/cart/ShoppinCart";
 import MainNav from "../../components/ui/MainNav";
 import ToastNotification from "../../components/ui/ToastNotification";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await verifySession();
+
   return (
     <>
       <MainNav />

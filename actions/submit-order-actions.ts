@@ -1,5 +1,6 @@
 "use server";
 
+import getToken from "@/auth/token";
 import {
   ErrorResponseSchema,
   OrderSchema,
@@ -8,12 +9,14 @@ import {
 import { revalidateTag } from "next/cache";
 
 export async function submitOrder(data: unknown) {
+  const token = await getToken();
   const order = OrderSchema.parse(data);
   const url = `${process.env.API_URL}/transactions`;
   const req = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(order),
   });

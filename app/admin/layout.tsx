@@ -1,11 +1,14 @@
+import { verifySession } from "@/auth/dalt";
 import AdminNav from "../../components/ui/AdminNav";
 import ToastNotification from "../../components/ui/ToastNotification";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await verifySession();
+
   return (
     <>
       <AdminNav />
